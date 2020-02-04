@@ -14,4 +14,15 @@ app.get('/', (rq, rs) => rs.sendFile(path.join(__dirname, '/public/index.html'))
 
 app.get('/notes', (rq, rs) => rs.sendFile(path.join(__dirname, '/public/notes.html')))
 
+app.get('/api/notes', (rq, rs) => rs.json(data))
+
+app.post('/api/notes', (rq, rs) => {
+    
+    let saveInfo = {'title': rq.body.title, 'text': rq.body.text}
+
+    data.push(saveInfo)
+
+
+})
+
 app.listen(PORT, () => console.log("http://localhost:" + PORT))
