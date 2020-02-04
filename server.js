@@ -28,6 +28,23 @@ app.post('/api/notes', (rq, rs) => {
 
 })
 
+app.delete('/api/notes/:id', (rq, rs) => {
+    const reqId = rq.params.id
+
+    let filData = data.filter(filData => {
+        return filData.id == reqId
+    })[0]
+
+    const index = data.indexOf(filData)
+
+    data.splice(index, 1)
+
+    update()
+
+    rs.json(data)
+    
+})
+
 const update = () => {
     data.forEach(addId(1))
 
