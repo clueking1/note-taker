@@ -22,7 +22,27 @@ app.post('/api/notes', (rq, rs) => {
 
     data.push(saveInfo)
 
+    update()
+
+    rs.json(data)
 
 })
+
+const update = () => {
+    data.forEach(addId(1))
+
+    fs.writeFileSync('./db/db.json', JSON.stringify(data, null, 4))
+
+    function addId(id) {
+        return function iter(o) {
+            if ('title' in o) {
+                o.id = id++
+            }
+            Object.keys(o).forEach(function(k){
+                Array.isArray(o[k]) && o[k].forEach(iter)
+            })
+        }
+    }
+}
 
 app.listen(PORT, () => console.log("http://localhost:" + PORT))
