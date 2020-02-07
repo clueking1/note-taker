@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const data = require('./db/db.json')
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000 
 
 const app = express()
 app.use(express.urlencoded({ extended: true }))
@@ -62,4 +62,4 @@ const update = () => {
     }
 }
 
-app.listen(PORT, () => console.log("http://localhost:" + PORT))
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
